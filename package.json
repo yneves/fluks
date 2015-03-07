@@ -1,0 +1,13 @@
+{
+  "name": "fluks",
+  "version": "0.1.0",
+  "author": {
+    "name": "Yuri Neves Silveira",
+    "email": "npm@yneves.com"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "flux": "^2.0.1",
+    "mocha": "^2.1.0"
+  }
+}
