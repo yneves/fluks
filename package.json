@@ -1,9 +1,15 @@
 {
   "name": "fluks",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "author": {
     "name": "Yuri Neves Silveira",
+    "url": "http://yneves.com/",
     "email": "npm@yneves.com"
+  },
+  "homepage": "https://github.com/yneves/fluks",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yneves/fluks.git"
   },
   "main": "index.js",
   "dependencies": {
