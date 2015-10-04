@@ -6,20 +6,23 @@
 */
 // - -------------------------------------------------------------------- - //
 
+"use strict";
+
 var modules = [
-  require("./lib/classes.js"),
-  // require("./lib/models.js"),
-  // require("./lib/collections.js"),
   require("./lib/dispatchers.js"),
   require("./lib/actions.js"),
   require("./lib/stores.js"),
-  require("./lib/flux.js"),
+  require("./lib/flux.js")
 ];
+
+var toExport = {};
 
 modules.forEach(function(obj) {
   Object.keys(obj).forEach(function(key) {
-    module.exports[key] = obj[key];
+    toExport[key] = obj[key];
   });
 });
+
+module.exports = toExport;
 
 // - -------------------------------------------------------------------- - //

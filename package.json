@@ -1,11 +1,12 @@
 {
   "name": "fluks",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "author": {
     "name": "Yuri Neves Silveira",
     "url": "http://yneves.com/",
     "email": "npm@yneves.com"
   },
+  "license": "MIT",
   "homepage": "https://github.com/yneves/fluks",
   "repository": {
     "type": "git",
@@ -13,7 +14,9 @@
   },
   "main": "index.js",
   "dependencies": {
+    "bauer-factory": "^2.0.4",
     "flux": "^2.0.1",
+    "immutable": "^3.7.5",
     "mocha": "^2.1.0"
   }
 }
