@@ -49,34 +49,6 @@ describe("Action",function() {
     assert.strictEqual(actionType,"TEST");
   });
   
-  it("should dispatch action when method is the actual payload",function() {
-    var flux = new index.Flux();
-    var action = flux.createAction({
-      test: {
-        actionType: "TEST"
-      }
-    });
-    var actionType;
-    action.dispatcher.register(function(payload) {
-      actionType = payload.actionType;
-    });
-    action.test();
-    assert.strictEqual(actionType,"TEST");
-  });
-  
-  it("should dispatch action when method is the actual actionType",function() {
-    var flux = new index.Flux();
-    var action = flux.createAction({
-      test: "TEST"
-    });
-    var actionType;
-    action.dispatcher.register(function(payload) {
-      actionType = payload.actionType;
-    });
-    action.test();
-    assert.strictEqual(actionType,"TEST");
-  });
-  
 });
 
 // - -------------------------------------------------------------------- - //
