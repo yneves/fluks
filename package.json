@@ -1,6 +1,6 @@
 {
   "name": "fluks",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "author": {
     "name": "Yuri Neves Silveira",
     "url": "http://yneves.com/",
@@ -14,9 +14,9 @@
   },
   "main": "index.js",
   "dependencies": {
-    "bauer-factory": "^2.0.5",
+    "bauer-factory": "^2.0.6",
     "flux": "^2.0.1",
-    "immutable": "^3.7.5",
-    "mocha": "^2.3.4"
+    "immutable": "^3.7.6",
+    "mocha": "^2.4.5"
   }
 }
