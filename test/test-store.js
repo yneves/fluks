@@ -7,21 +7,21 @@
 // - -------------------------------------------------------------------- - //
 // - assets
 
-"use strict";
+'use strict';
 
-var assert = require("assert");
-var index = require("../index.js");
+var assert = require('assert');
+var index = require('../index.js');
 
 // - -------------------------------------------------------------------- - //
 // - tests
 
-describe("Store",function() {
+describe('Store', function () {
 
-  it("should emit change when setState is called",function() {
+  it('should emit change when setState is called', function () {
     var flux = new index.Flux();
     var store = flux.createStore();
     var called = false;
-    store.on("change",function() {
+    store.on('change', function () {
       called = true;
     });
     store.setState({
@@ -30,42 +30,82 @@ describe("Store",function() {
     });
     assert.ok(called);
   });
-  
-  it("should call global handler when action is dispatched",function() {
+
+  it('should call global handler when action is dispatched', function () {
     var flux = new index.Flux();
     var store = flux.createStore();
     var actionType;
-    store.register(function(payload) {
+    store.register(function (payload) {
       actionType = payload.actionType;
     });
-    flux.dispatcher.dispatch({ actionType: "TEST" });
-    assert.strictEqual(actionType,"TEST");
+    flux.dispatcher.dispatch({actionType: 'TEST'});
+    assert.strictEqual(actionType, 'TEST');
   });
-  
-  it("should call action handler when action is dispatched",function() {
+
+  it('should call action handler when action is dispatched', function () {
     var flux = new index.Flux();
     var store = flux.createStore();
     var actionType;
     store.register({
       TEST: function () {
-        actionType = "TEST";
+        actionType = 'TEST';
       }
     });
-    flux.dispatcher.dispatch({ actionType: "TEST" });
-    assert.strictEqual(actionType,"TEST");
+    flux.dispatcher.dispatch({actionType: 'TEST'});
+    assert.strictEqual(actionType, 'TEST');
   });
-  
-  it("should NOT call action handler when another action is dispatched",function() {
+
+  it('should NOT call action handler when another action is dispatched', function () {
     var flux = new index.Flux();
     var store = flux.createStore();
     var actionType;
     store.register({
       TEST: function () {
-        actionType = "TEST";
+        actionType = 'TEST';
       }
     });
-    flux.dispatcher.dispatch({ actionType: "ANOTHER" });
-    assert.strictEqual(actionType,undefined);
+    flux.dispatcher.dispatch({actionType: 'ANOTHER'});
+    assert.strictEqual(actionType, undefined);
+  });
+
+  it('should catch change handler errors', function () {
+    var flux = new index.Flux();
+    var store = flux.createStore({
+      displayName: 'MyStore'
+    });
+    store.onChange(function () {
+      this.undefined();
+    });
+    var errorHandled = false;
+    store.on('error', function (error, trace) {
+      assert.ok(error instanceof Error);
+      assert.ok(trace instanceof Error);
+      assert.strictEqual(trace.message, 'MyStore: change handler error');
+      errorHandled = true;
+    });
+    store.emitChange();
+    assert.ok(errorHandled);
+  });
+
+  it('should catch dispatcher handler errors', function () {
+    var flux = new index.Flux();
+    var store = flux.createStore({
+      displayName: 'MyStore'
+    });
+    store.register({
+      TEST: function () {
+        this.undefined();
+      }
+    });
+    var errorHandled = false;
+    store.on('error', function (error, trace) {
+      assert.ok(error instanceof Error);
+      assert.ok(trace instanceof Error);
+      assert.strictEqual(trace.message, 'MyStore: dispatcher handler error');
+      errorHandled = true;
+    });
+    flux.dispatcher.dispatch({actionType: 'TEST'});
+    assert.ok(errorHandled);
   });
 
 });
