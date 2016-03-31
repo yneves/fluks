@@ -108,6 +108,33 @@ describe('Store', function () {
     assert.ok(errorHandled);
   });
 
+  it('should set state with path', function () {
+    var flux = new index.Flux();
+    var store = flux.createStore();
+    store.setState(['one', 'two', 'three'], 123);
+    assert.deepEqual(store.state.toJS(), {
+      one: {
+        two: {
+          three: 123
+        }
+      }
+    });
+    store.setState(['one', 'two'], {
+      four: 4,
+      five: 5
+    });
+    assert.deepEqual(store.state.toJS(), {
+      one: {
+        two: {
+          three: 123,
+          four: 4,
+          five: 5
+        }
+      }
+    });
+    assert.strictEqual(store.getState(['one', 'two', 'three']), 123);
+  });
+
 });
 
 // - -------------------------------------------------------------------- - //
