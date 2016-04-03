@@ -135,6 +135,20 @@ describe('Store', function () {
     assert.strictEqual(store.getState(['one', 'two', 'three']), 123);
   });
 
+  it('should attach one store to another', function () {
+    var flux = new index.Flux();
+    var store = flux.createStore();
+    var childStore = flux.createStore();
+    store.attachStore('child', childStore);
+    var changed = false;
+    store.on('change', function () {
+      changed = true;
+    });
+    childStore.setState({ one: 1, two: 2 });
+    assert.strictEqual(store.getState(['child', 'one']), 1);
+    assert.ok(changed);
+  });
+
 });
 
 // - -------------------------------------------------------------------- - //
